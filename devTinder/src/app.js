@@ -1,16 +1,16 @@
 const express = require("express")
 const app = express()
 
-app.use("/home",(req,res)=>{
-    res.send("This is home page")
+app.get("/user",(req,res)=>{
+    res.send("All data got fetched successfully")
 })
 
-app.use("/hello",(req,res)=>{
-    res.send("Hellow page")
+app.post("/user",(req,res)=>{
+    res.send("All data posted successfully")
 })
 
-app.use("/about",(req,res)=>{
-    res.send("this is about page")
+app.delete("/user",(req,res)=>{
+    res.send("Data deleted successfully")
 })
 
 app.listen(8081,()=>{
