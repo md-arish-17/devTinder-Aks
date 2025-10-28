@@ -1,28 +1,25 @@
 const express = require("express")
 const app = express()
 
-//Without middleware concept
+//Middleware concept
 
-app.use("/getUserData",(req,res)=>{
-    const token = "abcd"
-    const isAuthorized = token === "abcd"
-    if(isAuthorized){
-        res.send("All data sent")
+app.use("/admin",(req,res,next)=>{
+    const token = "udifkud"
+    const isAuthorised = token === "abcd"
+    if(isAuthorised){
+        next()
     }
     else{
-        res.status(401).send("Unauthorised request")
+        res.status(401).send("Unauthorised access")
     }
 })
 
-app.delete("/deleteUser",(req,res)=>{
-    const token = "abcd"
-    const isAuthorized = token === "abcd"
-    if(isAuthorized){
+app.use("/admin/getUserData",(req,res)=>{
+        res.send("All data sent")
+})
+
+app.delete("/admin/deleteUser",(req,res)=>{
         res.send("User deleted")
-    }
-    else{
-        res.status(401).send("Unauthorised request")
-    }
 })
 
 app.listen(8081,()=>{
