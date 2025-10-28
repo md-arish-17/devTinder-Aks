@@ -4,6 +4,7 @@ app.use(express.json())
 const {connectDB} = require("../src/config/database")
 const User = require("../src/models/user")
 
+// Submitting Data
 app.post("/signup",async(req,res)=>{
     // console.log(req.body)
     const user = new User(req.body)
@@ -12,8 +13,22 @@ app.post("/signup",async(req,res)=>{
         res.send("User added Successfully")
     }
     catch(err){
-        console.log("Error while submitting data")
-        console.error(err)
+        res.status(401).send("Something went wrong while posting user")
+    }
+})
+
+// Finding User by Email
+app.get("/userEmail",async(req,res)=>{
+    const userEmail = req.body.emailId
+    try{
+        const userData = await User.find({emailId:userEmail})
+        if(userData.length === 0){
+            res.status(404).send("User Not Found")
+        }
+            res.send(userData)
+    }
+    catch(err){
+        res.status(401).send("Something went wrong while getting data")
     }
 })
 
