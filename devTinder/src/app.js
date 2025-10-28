@@ -1,22 +1,13 @@
 const express = require("express")
 const app = express()
-const {adminAuth,userAuth} = require("../src/Middlewares/auth")
 
-//Middleware concept
-
-app.use("/admin", adminAuth)
-app.use("/user",userAuth)
-
-app.use("/admin/getUserData",(req,res)=>{
-    res.send("All data sent")
-})
-
-app.delete("/admin/deleteUser",(req,res)=>{
-    res.send("User deleted")
-})
-
-app.get("/user/userEmail",(req,res)=>{
-    res.send("Your email is testing123@gmail.com")
+app.use("/",(error,req,res,next)=>{
+    if(error){
+        res.status(501).send("Something went wrong")
+    }
+    else{
+        res.send("all data sent")
+    }
 })
 
 app.listen(8081,()=>{
