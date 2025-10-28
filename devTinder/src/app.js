@@ -32,6 +32,17 @@ app.get("/userEmail",async(req,res)=>{
     }
 })
 
+// Feed API get all the data from the database
+app.get("/feed",async(req,res)=>{
+    try{
+        const users = await User.find({})
+        res.send(users)
+    }
+    catch(err){
+        res.status(500).send("Something went wrong while fetching data")
+    }
+})
+
 connectDB()
 .then(()=>{
     console.log("Database Connected Successfully")
