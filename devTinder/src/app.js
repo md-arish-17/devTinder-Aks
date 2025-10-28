@@ -1,15 +1,17 @@
 const express = require("express")
 const app = express()
+const {connectDB} = require("../src/config/database")
 
-app.use("/",(error,req,res,next)=>{
-    if(error){
-        res.status(501).send("Something went wrong")
-    }
-    else{
-        res.send("all data sent")
-    }
+
+connectDB()
+.then(()=>{
+    console.log("Database Connected Successfully")
+    app.listen(8081,()=>{
+        console.log("Server started running at port 8081")
+    })
+})
+.catch((error)=>{
+    console.error(error)
+    console.log("Database did'nt connect")
 })
 
-app.listen(8081,()=>{
-    console.log("Port Started Running at 8081")
-});
