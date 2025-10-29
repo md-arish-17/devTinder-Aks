@@ -59,6 +59,23 @@ app.get("/userEmail/FindOne",async(req,res)=>{
 })
 
 
+//findById and Delete
+app.delete("/user/dataDelete",async(req,res)=>{
+    const userId = req.body._id
+    try{
+        const userDeleted = await User.findByIdAndDelete({_id:userId})
+        if(!userDeleted){
+            res.status(404).send("User did not exist")
+        }
+        res.send("User Deleted Successfully",userDeleted)
+    }
+    catch(err){
+        res.status(500).send("Internal Server Error while deleting user")
+    }
+})
+
+
+
 connectDB()
 .then(()=>{
     console.log("Database Connected Successfully")
