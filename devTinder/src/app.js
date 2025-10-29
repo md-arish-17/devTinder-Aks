@@ -74,6 +74,21 @@ app.delete("/user/dataDelete",async(req,res)=>{
     }
 })
 
+//findById and Update
+app.patch("/user/dataUpdate",async(req,res)=>{
+    const userId = req.body._id
+    const userData = req.body
+    try{
+        const userUpdated = await User.findByIdAndUpdate({_id:userId},userData)
+        if(!userUpdated){
+            res.status(404).send("No Such User Found")
+        }
+        res.send("User Updated Successfully",userUpdated)
+    }
+    catch(err){
+        res.status(500).send("Internal server error while updating user")
+    }
+})
 
 
 connectDB()
