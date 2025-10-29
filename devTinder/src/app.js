@@ -43,6 +43,22 @@ app.get("/feed",async(req,res)=>{
     }
 })
 
+// findOne by Email
+app.get("/userEmail/FindOne",async(req,res)=>{
+    const userEmail = req.body.emailId
+    try{
+        const userData = await User.findOne({emailId:userEmail})
+        if(!userData){
+            res.status(404).send("User not found")
+        }
+        res.send(userData)
+    }
+    catch(err){
+        res.status(500).send("Something went wrong while fetching data with findOne")
+    }
+})
+
+
 connectDB()
 .then(()=>{
     console.log("Database Connected Successfully")
