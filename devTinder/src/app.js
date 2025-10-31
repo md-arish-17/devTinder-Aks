@@ -11,7 +11,7 @@ app.post("/signup",async(req,res)=>{
     try{
         await user.save()
         res.send("User added Successfully")
-    }
+    } 
     catch(err){
         res.status(401).send("Something went wrong while posting user")
     }
@@ -79,7 +79,11 @@ app.patch("/user/dataUpdate",async(req,res)=>{
     const userId = req.body._id
     const userData = req.body
     try{
-        const userUpdated = await User.findByIdAndUpdate({_id:userId},userData)
+        const userUpdated = await User.findByIdAndUpdate(
+            {_id:userId},
+            userData,
+            {runValidators:true}
+        )
         if(!userUpdated){
             res.status(404).send("No Such User Found")
         }
